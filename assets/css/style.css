@@ -232,7 +232,7 @@ body::-webkit-scrollbar-thumb {
 
 .section-title { margin-block-end: 40px; }
 
-:is(.portfolio, .news) .section-title { margin-block-end: 60px; }
+:is(.projects, .publications) .section-title { margin-block-end: 60px; }
 
 .card {
   position: relative;
@@ -491,57 +491,73 @@ body::-webkit-scrollbar-thumb {
 
 .timeline-item .item-title { color: var(--black); }
 
+.timeline-item .item-text { grid-column: 1 / -1; font-size: var(--fs-13); line-height: 1.6; }
+
+.exp-list .strong { white-space: nowrap; }
+
+.hero-text { margin-block-end: 25px; }
+
+.skills-list .skill-title { color: var(--white); margin-block-end: 6px; }
+
+.skills-list .skill-text { color: var(--light-gray); line-height: 1.6; }
+
 
 
 
 
 /*-----------------------------------*\
-  #PRICEING
+  #PROJECTS & PUBLICATIONS
 \*-----------------------------------*/
 
-.pricing { background-color: var(--cultured); }
+.publications { background-color: var(--cultured); }
 
-.pricing .section-text { margin-block-end: 60px; }
-
-.pricing-list {
+.project-list {
   display: grid;
   gap: 30px;
 }
 
-.pricing-card {
+.project-card {
   --color: var(--black);
   --icon-color: var(--theme-color);
 
+  display: block;
+  height: 100%;
   background-color: var(--white);
   border-radius: var(--radius-10);
   box-shadow: var(--shadow);
-  line-height: 1.2;
   padding: 30px;
   transition: var(--transition);
 }
 
-.pricing-card ion-icon {
+.project-card ion-icon {
   color: var(--icon-color);
-  flex-shrink: 0;
-  font-size: 25px;
+  font-size: 30px;
   transition: var(--transition);
 }
 
-.pricing-card .card-title {
-  color: var(--color);
-  font: unset;
-  font-family: var(--ff-poppins);
-  margin-block: 14px 10px;
-  transition: var(--transition);
-}
-
-.pricing-card .card-price {
+.project-card .card-meta {
   color: var(--color);
   font-family: var(--ff-poppins);
+  font-size: var(--fs-13);
+  opacity: 0.7;
+  margin-block: 15px 5px;
   transition: var(--transition);
 }
 
-.pricing-card:is(:hover, :focus-within) {
+.project-card .card-title {
+  color: var(--color);
+  margin-block-end: 12px;
+  transition: var(--transition);
+}
+
+.project-card .card-text {
+  color: var(--color);
+  font-family: var(--ff-mulish);
+  line-height: 1.6;
+  transition: var(--transition);
+}
+
+.project-card:is(:hover, :focus-within, :focus) {
   background-color: var(--theme-color);
   --color: var(--white);
   --icon-color: var(--white);
@@ -555,7 +571,7 @@ body::-webkit-scrollbar-thumb {
   #NEWS
 \*-----------------------------------*/
 
-.news-card .card-text { margin-block-end: 5px; }
+
 
 
 
@@ -611,6 +627,7 @@ textarea.input-field {
 }
 
 .submit-btn {
+  max-width: 300px;
   background-color: var(--theme-color);
   color: var(--white);
   width: 100%;
@@ -695,20 +712,10 @@ textarea.input-field {
 
 
   /**
-   * PRICING
+   * PROJECTS
    */
 
-  .pricing-card {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .pricing-card .card-title {
-    margin-block: 0;
-    margin-inline-end: auto;
-  }
+  .project-list { grid-template-columns: 1fr 1fr; }
 
 }
 
@@ -766,10 +773,9 @@ textarea.input-field {
 
 
   /**
-   * PRICING, CONTACT
+   * CONTACT
    */
 
-  .pricing-card,
   .contact-link { font-size: var(--fs-18); }
 
 
@@ -976,23 +982,10 @@ textarea.input-field {
 
 
   /**
-   * PRICING
+   * PROJECTS
    */
 
-  .pricing .container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: flex-start;
-    gap: 200px;
-  }
-
-  .pricing-content {
-    position: sticky;
-    top: 120px;
-  }
-
-  .pricing .section-text { margin-block-end: 0; }
+  .project-list { grid-template-columns: repeat(3, 1fr); }
 
 
 
@@ -1000,12 +993,7 @@ textarea.input-field {
    * CONTACT
    */
 
-  .contact .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 200px;
-  }
+  .contact-content { max-width: 600px; }
 
   .contact-list { margin-block-end: 0; }
 
@@ -1035,7 +1023,7 @@ textarea.input-field {
 
   .scrollbar-item { min-width: calc(33.33% - 26.66px); }
 
-  :is(.portfolio, .news) .section-title { margin-block-end: 80px; }
+  :is(.projects, .publications) .section-title { margin-block-end: 80px; }
 
 
 
