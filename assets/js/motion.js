@@ -98,6 +98,7 @@ const revealGroups = [
   ".section:not(.hero) .section-title",
   ".section:not(.hero) .section-text",
   ".project-list > li",
+  ".gallery-item",
   ".skills-item",
   ".timeline-item",
   ".contact-item",
@@ -366,7 +367,7 @@ if (finePointer && !reduceMotion) {
     dot.style.transform = "translate3d(" + mouseX + "px," + mouseY + "px,0)";
     root.classList.add("has-cursor");
 
-    const interactive = event.target.closest("a, button, .project-card");
+    const interactive = event.target.closest("a, button, .project-card, .gallery-card");
     ring.classList.toggle("is-hovering", !!interactive);
 
     if (!running) {

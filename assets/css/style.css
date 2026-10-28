@@ -433,6 +433,141 @@ body::-webkit-scrollbar-thumb {
 
 
 /*-----------------------------------*\
+  #GALLERY
+\*-----------------------------------*/
+
+.gallery-list { columns: 1; column-gap: 24px; }
+
+.gallery-item {
+  break-inside: avoid;
+  margin-block-end: 24px;
+}
+
+.gallery-card {
+  position: relative;
+  border-radius: var(--radius-10);
+  overflow: hidden;
+  background-color: var(--light-gray);
+  box-shadow: var(--shadow);
+}
+
+.gallery-open {
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+}
+
+.gallery-img {
+  width: 100%;
+  transition: transform 0.8s var(--cubic-out);
+}
+
+.gallery-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: grid;
+  gap: 2px;
+  padding: 50px 20px 18px;
+  background: linear-gradient(to top, var(--black_70), transparent);
+  color: var(--white);
+  pointer-events: none;
+}
+
+.gallery-meta {
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-13);
+  opacity: 0.8;
+}
+
+.gallery-title {
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-17);
+  font-weight: var(--fw-600);
+  line-height: 1.3;
+}
+
+.gallery-text {
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.gallery-card[data-placeholder]::before {
+  content: "Placeholder";
+  position: absolute;
+  inset-block-start: 14px;
+  inset-inline-start: 14px;
+  z-index: 1;
+  background-color: var(--white);
+  color: var(--black);
+  font-family: var(--ff-poppins);
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 2px 10px;
+  border-radius: 50px;
+  pointer-events: none;
+}
+
+.gallery-card:is(:hover, :focus-within) .gallery-img { transform: scale(1.06); }
+
+.lightbox {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  border: none;
+  background-color: hsla(0, 0%, 0%, 0.9);
+  color: var(--white);
+  place-items: center;
+  padding: 60px 16px;
+}
+
+.lightbox[open] { display: grid; }
+
+.lightbox::backdrop { background: transparent; }
+
+.lightbox-figure {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  max-width: 1100px;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 75vh;
+  width: auto;
+  border-radius: var(--radius-8);
+}
+
+.lightbox-caption {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.lightbox-btn {
+  position: absolute;
+  color: var(--white);
+  font-size: 32px;
+  padding: 10px;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.lightbox-btn:is(:hover, :focus-visible) { color: var(--theme-color); }
+
+.lightbox-close { inset-block-start: 12px; inset-inline-end: 12px; }
+
+.lightbox-prev { inset-inline-start: 8px; inset-block-start: 50%; translate: 0 -50%; }
+
+.lightbox-next { inset-inline-end: 8px; inset-block-start: 50%; translate: 0 -50%; }
+
+
+
+
+
+/*-----------------------------------*\
   #SKILLS
 \*-----------------------------------*/
 
@@ -717,6 +852,8 @@ textarea.input-field {
 
   .project-list { grid-template-columns: 1fr 1fr; }
 
+  .gallery-list { columns: 2; }
+
 }
 
 
@@ -986,6 +1123,8 @@ textarea.input-field {
    */
 
   .project-list { grid-template-columns: repeat(3, 1fr); }
+
+  .gallery-list { columns: 3; }
 
 
 
