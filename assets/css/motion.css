@@ -1,0 +1,331 @@
+/*-----------------------------------*\
+  #motion.css
+  Motion layer on top of style.css. Classes here are added by
+  assets/js/motion.js, so the page still reads fine without JS.
+\*-----------------------------------*/
+
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-distance: 40px;
+}
+
+
+
+
+
+/*-----------------------------------*\
+  #SCROLL PROGRESS
+\*-----------------------------------*/
+
+.scroll-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 3px;
+  background-color: var(--theme-color);
+  transform-origin: left;
+  transform: scaleX(var(--progress, 0));
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+
+
+
+/*-----------------------------------*\
+  #INTRO
+\*-----------------------------------*/
+
+.motion-ready .intro-item {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.motion-ready.is-loaded .intro-item {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 90ms + 150ms);
+}
+
+.motion-ready .hero-banner {
+  clip-path: inset(100% 0 0 0 round var(--radius-10));
+}
+
+.motion-ready.is-loaded .hero-banner {
+  clip-path: inset(0 0 0 0 round var(--radius-10));
+  transition: clip-path 1.3s var(--ease-out-expo) 0.1s;
+}
+
+.hero-banner .img-cover {
+  transform: translate3d(0, var(--parallax, 0px), 0) scale(1.12);
+  will-change: transform;
+}
+
+/* hero title, split into words by motion.js */
+
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-block-end: 0.08em;
+}
+
+.split-word > .split-inner {
+  display: inline-block;
+  transform: translateY(110%);
+}
+
+.is-loaded .split-word > .split-inner {
+  transform: none;
+  transition: transform 1s var(--ease-out-expo);
+  transition-delay: calc(var(--w, 0) * 60ms + 250ms);
+}
+
+
+
+
+
+/*-----------------------------------*\
+  #SCROLL REVEAL
+\*-----------------------------------*/
+
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+/* timeline: a line draws itself down the list */
+
+.timeline-list.has-track { position: relative; }
+
+.timeline-list.has-track::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: -16px;
+  width: 2px;
+  background-color: var(--theme-color);
+  transform-origin: top;
+  transform: scaleY(var(--track, 0));
+}
+
+
+
+
+
+/*-----------------------------------*\
+  #PROJECT FILTER
+\*-----------------------------------*/
+
+.project-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-block-end: 30px;
+}
+
+.filter-btn {
+  color: var(--black);
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-13);
+  padding: 6px 16px;
+  border: 1px solid var(--black_20);
+  border-radius: 50px;
+  transition: var(--transition);
+}
+
+.filter-btn:is(:hover, :focus-visible) { border-color: var(--theme-color); color: var(--theme-color); }
+
+.filter-btn.active {
+  background-color: var(--theme-color);
+  border-color: var(--theme-color);
+  color: var(--white);
+}
+
+.project-list > li.is-hidden { display: none; }
+
+/* lightbox: fade and scale the photo in */
+
+.lightbox[open] .lightbox-figure { animation: lightbox-in 0.5s var(--ease-out-expo); }
+
+@keyframes lightbox-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+.project-list > li.is-leaving {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+
+
+
+
+/*-----------------------------------*\
+  #CARD SPOTLIGHT & TILT
+\*-----------------------------------*/
+
+.project-card.has-spotlight {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.4s var(--ease-out-expo);
+}
+
+.project-card.has-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    300px circle at var(--mx, 50%) var(--my, 50%),
+    hsla(0, 0%, 100%, 0.25),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.project-card.has-spotlight:hover::after { opacity: 1; }
+
+.project-card.has-spotlight:hover { box-shadow: 0 20px 40px hsla(10, 100%, 40%, 0.25); }
+
+
+
+
+
+/*-----------------------------------*\
+  #CURSOR
+\*-----------------------------------*/
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), background-color 0.3s ease;
+}
+
+.has-cursor .cursor-dot,
+.has-cursor .cursor-ring { opacity: 1; }
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background-color: var(--theme-color);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1.5px solid var(--theme-color);
+  mix-blend-mode: multiply;
+}
+
+.cursor-ring.is-hovering {
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  background-color: hsla(10, 100%, 57%, 0.12);
+}
+
+
+
+
+
+/*-----------------------------------*\
+  #NAV SCROLLSPY
+\*-----------------------------------*/
+
+.navbar-link.is-current { color: var(--theme-color); }
+
+@media (min-width: 992px) {
+
+  .navbar-link { position: relative; }
+
+  .navbar-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: -4px;
+    height: 2px;
+    background-color: var(--theme-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .navbar-link:is(:hover, :focus-visible, .is-current)::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+}
+
+
+
+
+
+/*-----------------------------------*\
+  #MAGNETIC
+\*-----------------------------------*/
+
+.magnetic {
+  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0);
+  transition: transform 0.4s var(--ease-out-expo), background-color 0.25s ease, color 0.25s ease;
+}
+
+
+
+
+
+/*-----------------------------------*\
+  #REDUCED MOTION
+\*-----------------------------------*/
+
+@media (prefers-reduced-motion: reduce) {
+
+  .motion-ready .intro-item,
+  .reveal,
+  .split-word > .split-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .motion-ready .hero-banner { clip-path: none !important; }
+
+  .lightbox[open] .lightbox-figure { animation: none; }
+
+  .hero-banner .img-cover { transform: none; }
+
+  .cursor-dot,
+  .cursor-ring { display: none; }
+
+}

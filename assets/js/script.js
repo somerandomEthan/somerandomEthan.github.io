@@ -55,3 +55,46 @@ window.addEventListener("scroll", function () {
     header.classList.remove("active");
   }
 });
+
+
+/**
+ * gallery lightbox
+ */
+
+const lightbox = document.querySelector("[data-lightbox]");
+const galleryCards = document.querySelectorAll(".gallery-card");
+
+if (lightbox && galleryCards.length && typeof lightbox.showModal === "function") {
+  const lightboxImg = lightbox.querySelector("[data-lightbox-img]");
+  const lightboxCaption = lightbox.querySelector("[data-lightbox-caption]");
+  let current = 0;
+
+  const showPhoto = function (index) {
+    current = (index + galleryCards.length) % galleryCards.length;
+    const card = galleryCards[current];
+    const img = card.querySelector(".gallery-img");
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = card.querySelector(".gallery-title").textContent + " \u2014 " + card.querySelector(".gallery-text").textContent;
+  }
+
+  galleryCards.forEach(function (card, i) {
+    card.querySelector(".gallery-open").addEventListener("click", function () {
+      showPhoto(i);
+      lightbox.showModal();
+    });
+  });
+
+  lightbox.querySelector("[data-lightbox-close]").addEventListener("click", function () { lightbox.close(); });
+  lightbox.querySelector("[data-lightbox-prev]").addEventListener("click", function () { showPhoto(current - 1); });
+  lightbox.querySelector("[data-lightbox-next]").addEventListener("click", function () { showPhoto(current + 1); });
+
+  lightbox.addEventListener("click", function (event) {
+    if (event.target === lightbox) lightbox.close();
+  });
+
+  lightbox.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowLeft") showPhoto(current - 1);
+    if (event.key === "ArrowRight") showPhoto(current + 1);
+  });
+}
