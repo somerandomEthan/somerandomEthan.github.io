@@ -17,6 +17,17 @@
     - custom css link
   -->
   <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/motion.css">
+
+  <!-- 
+    - hide intro elements until motion.js plays them in (skipped for reduced motion)
+  -->
+  <script>
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("motion-ready");
+      setTimeout(function () { document.documentElement.classList.add("is-loaded"); }, 2500);
+    }
+  </script>
 
   <!-- 
     - google font link
@@ -551,6 +562,7 @@
     - custom js link
   -->
   <script src="./assets/js/script.js" defer></script>
+  <script src="./assets/js/motion.js" defer></script>
 
   <!-- 
     - ionicon link
